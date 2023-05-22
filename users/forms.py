@@ -4,12 +4,19 @@ from django.contrib.auth.models import User
 from .models import CustomUser, playerProfile
 from django.forms import TextInput
 
-class UserRegisterFrom(UserCreationForm):
+class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2', 'which_account']
+        
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+    
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email']
 
 class ProfileSignUpForm(forms.ModelForm):
     class Meta:

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegisterFrom, ProfileSignUpForm
+from .forms import UserRegisterForm, ProfileSignUpForm, UserUpdateForm
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -10,7 +10,7 @@ from users.models import CustomUser
 
 def register(request):
     if request.method == "POST":
-        register_form = UserRegisterFrom(request.POST)
+        register_form = UserRegisterForm(request.POST)
         if register_form.is_valid():
             register_form.save()
             register_form_data = dict(register_form.cleaned_data)
@@ -28,7 +28,7 @@ def register(request):
             return redirect('login-page') #HttpResponse('FORM VALIDO')
         print('form inviato ma non valido')
     else:
-        register_form =UserRegisterFrom()
+        register_form =UserRegisterForm()
         profile_form = ProfileSignUpForm()
     return render(request, "users/register.html", context={'register_form':register_form, 'profile_form': profile_form})
 
@@ -37,4 +37,13 @@ def home(request):
 
 @login_required
 def profile(request):
-    return render(request, 'users/home.html')
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        #p_form
+        if u_form.is_valid():
+            u_form.save()
+            messages.info(request, f'user {request.user.username} updated with succes')
+    else:
+        u_form = UserUpdateForm(instance = request.user)
+        
+    return render(request, 'users/profile.html', {'u_form':u_form})
