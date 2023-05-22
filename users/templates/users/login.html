@@ -1,0 +1,21 @@
+{% extends 'users/base_user.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-md-6 offset-md-3 d-flex align-items-center p-3 my-3 text-white bg-dark rounded shadow-sm mb-1">
+    <div class="lh-1">
+      <h1 class="h6 mb-0 text-white lh-1">Log in</h1>
+    </div>  
+</div>
+<div class="col-md-6 offset-md-3 p-3 my-3 bg-body rounded shadow-sm mt-1">
+    <form method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Sign In</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'users/base_user.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-md-6 offset-md-3 d-flex align-items-center p-3 my-3 text-white bg-dark rounded shadow-sm mb-1">
+    <div class="lh-1">
+      <h1 class="h6 mb-0 text-white lh-1">Register new account</h1>
+    </div>  
+</div>
+
+<div class="col-md-6 offset-md-3 p-3 my-3 bg-body rounded shadow-sm mt-1">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {{register_form|crispy}}
+
+            <div id="div_id_name" class="mb-3">
+            </div>
+
+            <div id="div_id_surname" class="mb-3">
+            </div>
+
+            <div id="div_id_circolo" class="mb-3">
+            </div>
+        </fieldset>
+    <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Sign Up</button>
+    </div>
+    </form>
+</div>
+<script>
+    document.getElementById("id_which_account").addEventListener("change", cheProfilo);
+
+    function cheProfilo(event) {
+        let tipoAccount = document.getElementById("id_which_account");
+        let sezioneCognome = document.getElementById("div_id_surname");
+        let sezioneNome = document.getElementById("div_id_name");
+        let sezioneCircolo = document.getElementById('div_id_circolo');
+
+        if (tipoAccount.value === 'Gplayer') {
+            
+            sezioneNome.innerHTML = `<label for="div_id_name" class="form-label requiredField">
+                                        Nome<span class="asteriskField">*</span>
+                                     </label>
+                                        {{profile_form.name}}`;
+
+            sezioneCognome.innerHTML = `<label for="div_id_surname" class="form-label requiredField">
+                                           Cognome<span class="asteriskField">*</span>
+                                        </label>
+                                           {{profile_form.surname}}`;
+            sezioneCircolo.innerHTML = '';
+                                
+        } else if (tipoAccount.value === 'Gclub') {
+            sezioneNome.innerHTML = ``;
+            sezioneCognome.innerHTML = ``;
+            sezioneCircolo.innerHTML = 'WORK IN PROGRESS';
+        } else {
+            sezioneNome.innerHTML = '';
+            sezioneCognome.innerHTML = '';   
+            sezioneCircolo.innerHTML = '';
+        }
+    }
+</script>
+{% endblock %}
