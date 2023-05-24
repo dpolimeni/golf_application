@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegisterForm, ProfileSignUpForm, UserUpdateForm
+from .forms import UserRegisterForm, ProfileSignUpForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -39,11 +39,21 @@ def home(request):
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        #p_form
-        if u_form.is_valid():
+        p_form = ProfileUpdateForm(request.POST, 
+                                   request.FILES,
+                                   instance=request.user.playerprofile)
+        if u_form.is_valid() and p_form.is_valid():
             u_form.save()
+            p_form.save()
             messages.info(request, f'user {request.user.username} updated with succes')
+            return redirect('profile-page')
     else:
         u_form = UserUpdateForm(instance = request.user)
+        p_form = ProfileUpdateForm(instance=request.user.playerprofile)
+    
+    context = {
+        'u_form':u_form,
+        'p_form': p_form
+    }
         
-    return render(request, 'users/profile.html', {'u_form':u_form})
+    return render(request, 'users/profile.html', context)

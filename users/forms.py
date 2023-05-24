@@ -35,3 +35,8 @@ class ProfileSignUpForm(forms.ModelForm):
                 'placeholder': 'Cognome'
                 })
         }
+        
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = playerProfile
+        fields = ['img']

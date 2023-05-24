@@ -28,7 +28,6 @@ class playerProfile(models.Model):
     img = models.ImageField(default='default.jpeg', upload_to='image_pics')
     name = models.CharField(max_length=64)
     surname = models.CharField(max_length=64)
-    address = models.TextField(default=None, blank=True, null=True)
     experience = models.CharField(max_length=20, choices=OPTION_EXPERIENCE, default='-1')
 
     def __str__(self):
@@ -43,4 +42,24 @@ class playerProfile(models.Model):
             output_size = (300, 300)
             image.thumbnail(output_size)
             image.save(self.img.path)
+
+class clubProfile(models.Model):
+    HOLES_CHOICES = (
+        (9, 9),
+        (18, 18)
+    )
+    
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    number_holes = models.IntegerField(default=9, choices=HOLES_CHOICES)
+    name = models.CharField(max_length=64)
+    city = models.CharField(max_length=64)
+    country = models.CharField(max_length=64)
+    address = models.TextField(default=None, blank=True, null=True)
+    img = models.ImageField(default='default_club.jpeg', upload_to='image_pics')
+    
+    class Meta:
+        ordering = ['name']
+    
+     
+    
         
