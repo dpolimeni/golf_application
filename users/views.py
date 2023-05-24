@@ -1,5 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegisterForm, ProfileSignUpForm, UserUpdateForm, ProfileUpdateForm
+from .forms import (UserRegisterForm,
+                    ProfileSignUpForm,
+                    UserUpdateForm, 
+                    ProfileUpdateForm,
+                    ClubSignUpForm
+                    )
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -14,23 +19,27 @@ def register(request):
         if register_form.is_valid():
             register_form.save()
             register_form_data = dict(register_form.cleaned_data)
-            username = register_form.cleaned_data.get('username')
-            user = CustomUser.objects.get(username=username)
-            profile_form = ProfileSignUpForm(request.POST, instance=user.playerprofile)
-            if profile_form.is_valid():
-                profile_form_data = dict(profile_form.cleaned_data)
-                print(profile_form_data)
-                profile_form.save()
-            #username = register_form.cleaned_data.get('username')
-            #messages.info(request, message=f"Account created for user {username}")
-            print('form valido')
-            print(register_form_data)
+            if register_form_data['which_account'] == 'Gplayer':
+                username = register_form.cleaned_data.get('username')
+                user = CustomUser.objects.get(username=username)
+                profile_form = ProfileSignUpForm(request.POST, instance=user.playerprofile)
+                if profile_form.is_valid():
+                    profile_form_data = dict(profile_form.cleaned_data)
+                    print(profile_form_data)
+                    profile_form.save()
+                #username = register_form.cleaned_data.get('username')
+                #messages.info(request, message=f"Account created for user {username}")
+                print('form valido')
+                print(register_form_data)
             return redirect('login-page') #HttpResponse('FORM VALIDO')
         print('form inviato ma non valido')
     else:
         register_form =UserRegisterForm()
         profile_form = ProfileSignUpForm()
-    return render(request, "users/register.html", context={'register_form':register_form, 'profile_form': profile_form})
+        club_form = ClubSignUpForm()
+    return render(request, "users/register.html", context={'register_form':register_form,
+                                                           'profile_form': profile_form,
+                                                           'club_form':club_form})
 
 def home(request):
     return render(request, 'users/home.html')

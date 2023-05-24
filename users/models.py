@@ -48,7 +48,6 @@ class clubProfile(models.Model):
         (9, 9),
         (18, 18)
     )
-    
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     number_holes = models.IntegerField(default=9, choices=HOLES_CHOICES)
     name = models.CharField(max_length=64)

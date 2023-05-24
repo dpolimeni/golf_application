@@ -55,7 +55,18 @@
         } else if (tipoAccount.value === 'Gclub') {
             sezioneNome.innerHTML = ``;
             sezioneCognome.innerHTML = ``;
-            sezioneCircolo.innerHTML = 'WORK IN PROGRESS';
+            sezioneCircolo.innerHTML = `<label for="div_id_circolo" class="form-label requiredField">
+                                        Nome Circolo<span class="asteriskField">*</span>
+                                        </label>
+                                        {{club_form.name}}
+                                        <label for="div_id_circolo" class="form-label requiredField">
+                                        Nazione<span class="asteriskField">*</span>
+                                        </label>
+                                        {{club_form.country}}
+                                        <label for="div_id_circolo" class="form-label requiredField">
+                                        Nazione<span class="asteriskField">*</span>
+                                        </label>
+                                        {{club_form.number_holes}}`;
         } else {
             sezioneNome.innerHTML = '';
             sezioneCognome.innerHTML = '';   
