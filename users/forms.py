@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import CustomUser, playerProfile, clubProfile
-from django.forms import TextInput, NumberInput
+from django.forms import TextInput, NumberInput, ChoiceField
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -39,7 +39,7 @@ class ProfileSignUpForm(forms.ModelForm):
 class ClubSignUpForm(forms.ModelForm):
     class Meta:
         model = clubProfile
-        fields = ['name', 'country', 'number_holes']
+        fields = ['name', 'city', 'number_holes']
         
         widgets = {
             'name': TextInput(attrs={
@@ -47,13 +47,13 @@ class ClubSignUpForm(forms.ModelForm):
                 #'style': 'max-width: 300px;',
                 'placeholder': 'Nome'
                 }),
-            'country': TextInput(attrs={
+            'city': TextInput(attrs={
                 'class': "form-control mb-3",
                 #'style': 'max-width: 300px;',
-                'placeholder': 'Nazione'
+                'placeholder': 'Città'
                 }),
-            'number_holes': NumberInput(attrs={
-                'class': "form-control mb-3",
+            'number_holes': forms.Select(attrs={
+                'class': "select form-select",
                 })
         }
         

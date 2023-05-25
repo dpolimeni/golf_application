@@ -51,8 +51,8 @@ class clubProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     number_holes = models.IntegerField(default=9, choices=HOLES_CHOICES)
     name = models.CharField(max_length=64)
-    city = models.CharField(max_length=64)
-    country = models.CharField(max_length=64)
+    city = models.CharField(max_length=64, null=True, blank=True, default='Other')
+    country = models.CharField(max_length=64, null=True, blank=True)
     address = models.TextField(default=None, blank=True, null=True)
     img = models.ImageField(default='default_club.jpeg', upload_to='image_pics')
     
@@ -60,5 +60,6 @@ class clubProfile(models.Model):
         ordering = ['name']
     
      
+
     
         

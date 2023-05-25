@@ -27,8 +27,15 @@ def register(request):
                     profile_form_data = dict(profile_form.cleaned_data)
                     print(profile_form_data)
                     profile_form.save()
-                #username = register_form.cleaned_data.get('username')
-                #messages.info(request, message=f"Account created for user {username}")
+            if register_form_data['which_account'] == 'Gclub':
+                username = register_form.cleaned_data.get('username')
+                user = CustomUser.objects.get(username=username)
+                club_form = ClubSignUpForm(request.POST, instance=user.clubprofile)
+                if club_form.is_valid():
+                    club_form_data = dict(club_form.cleaned_data)
+                    print(club_form_data)
+                    club_form.save()
+           
                 print('form valido')
                 print(register_form_data)
             return redirect('login-page') #HttpResponse('FORM VALIDO')
