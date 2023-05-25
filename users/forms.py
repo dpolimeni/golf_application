@@ -61,3 +61,8 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = playerProfile
         fields = ['img']
+        
+class ClubUpdateForm(forms.ModelForm):
+    class Meta:
+        model = clubProfile
+        fields = ['img']

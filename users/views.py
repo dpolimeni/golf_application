@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from users.models import CustomUser
+from .utils import form_generator
 
 
 # Create your views here.
@@ -53,23 +54,17 @@ def home(request):
 
 @login_required
 def profile(request):
+    u_form, p_form = form_generator(request, request.user.which_account)
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, 
-                                   request.FILES,
-                                   instance=request.user.playerprofile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
             messages.info(request, f'user {request.user.username} updated with succes')
             return redirect('profile-page')
-    else:
-        u_form = UserUpdateForm(instance = request.user)
-        p_form = ProfileUpdateForm(instance=request.user.playerprofile)
     
     context = {
-        'u_form':u_form,
-        'p_form': p_form
+        'u_form': u_form,
+        'p_form': p_form,
     }
         
     return render(request, 'users/profile.html', context)
