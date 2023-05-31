@@ -19,17 +19,16 @@ class CustomUser(AbstractUser):
 # Create your models here.
 class playerProfile(models.Model):
     OPTION_EXPERIENCE = (
-        ('< 1', '< 1'),
-        ('1 - 3', '1 - 3'),
-        ('> 3', ' > 3')
+        ('< 1', 'Meno di un anno'),
+        ('1 - 3', 'Tra uno e tre anni'),
+        (' > 3', 'Più di 3 anni')
     ) 
-    
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     img = models.ImageField(default='default.jpeg', upload_to='image_pics')
     name = models.CharField(max_length=64)
     surname = models.CharField(max_length=64)
     experience = models.CharField(max_length=20, choices=OPTION_EXPERIENCE, default='-1')
-    #description = models.CharField(max_length=256, null=True, blank=True)
+    description = models.CharField(max_length=256, null=True, blank=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'

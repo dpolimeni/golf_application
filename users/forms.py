@@ -7,17 +7,14 @@ from django.forms import TextInput, NumberInput, ChoiceField, EmailInput
 widgets = {
             'name': TextInput(attrs={
                 'class': "form-control mb-3",
-                #'style': 'max-width: 300px;',
                 'placeholder': 'Nome'
                 }),
             'surname': TextInput(attrs={
                 'class': "form-control mb-3",
-                #'style': 'max-width: 300px;',
                 'placeholder': 'Cognome'
                 }),
             'city': TextInput(attrs={
                 'class': "form-control mb-3",
-                #'style': 'max-width: 300px;',
                 'placeholder': 'Città'
                 }),
             'number_holes': forms.Select(attrs={
@@ -28,12 +25,10 @@ widgets = {
                 }),
             'username': TextInput(attrs={
                 'class': "form-control mb-3",
-                #'style': 'max-width: 300px;',
                 'placeholder': 'username'
                 }),
             'email': EmailInput(attrs={
                 'class': "emailinput form-control mb-3",
-                #'style': 'max-width: 300px;',
                 'placeholder': 'email',
                 'required': True
                 })
