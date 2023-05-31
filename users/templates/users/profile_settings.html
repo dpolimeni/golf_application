@@ -8,17 +8,57 @@
         {% else %}
           <img class="rounded-circle account-img" src="{{ user.clubprofile.img.url }}">
         {% endif %}
-        <div class="media-body">
-          <h2 class="account-heading">{{user.username}}</h2>
-        </div>
       </div>
       <!-- FORM HERE enctype needed to upload and save images -->
       <form method="POST" enctype="multipart/form-data">
             {% csrf_token %} <!-- INSERT FOR SECURITY OF DJANGO FORMS -->
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Profile Info</legend>
-                {{ u_form|crispy }}
-                {{ p_form|crispy }}
+                <div id="div_id_username" class="mb-3"> 
+                    <label for="id_username" class="form-label requiredField">
+                    Nome utente<span class="asteriskField">*</span>
+                    </label>
+                    {{u_form.username}}
+                    <div id="hint_id_username" class="form-text">
+                        Obbligatorio. 150 caratteri o meno.Solo lettere, cifre e @/./+/-/_
+                    </div> 
+                </div>
+                <div id="div_id_eamil" class="mb-3"> 
+                    <label for="id_email" class="form-label requiredField">
+                    Email<span class="asteriskField">*</span>
+                    </label>
+                    {{u_form.email}}
+                </div>
+                {% if user.playerprofile %}
+                <div id="div_id_name" class="mb-3"> 
+                    <label for="id_name" class="form-label requiredField">
+                    Nome<span class="asteriskField">*</span>
+                    </label>
+                    {{p_form.name}}
+                </div>
+                <div id="div_id_surname" class="mb-3"> 
+                    <label for="id_surname" class="form-label requiredField">
+                    Cognome<span class="asteriskField">*</span>
+                    </label>
+                    {{p_form.surname}}
+                </div>
+                <div id="div_id_experience" class="mb-3"> 
+                    <label for="id_experience" class="form-label requiredField">
+                    Anni di Esperienza<span class="asteriskField">*</span>
+                    </label>
+                    {{p_form.experience}}
+                </div>
+                <div id="div_id_img" class="mb-3"> 
+                    <label for="id_img" class="form-label requiredField">
+                        Immagine profilo<span class="asteriskField">*</span> 
+                    </label>
+                    <div>
+                        <input type="file" name="img" class="form-control" accept="image/*" id="id_img">
+                    </div> 
+                </div>
+                {% else %}
+                    {{p_form|crispy}}
+                {% endif %}
             </fieldset>
             <div class="form-group mt-4">
                 <button class="btn btn-outline-info" type="submit">Update</button>
