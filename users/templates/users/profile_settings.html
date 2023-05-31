@@ -10,7 +10,6 @@
         {% endif %}
         <div class="media-body">
           <h2 class="account-heading">{{user.username}}</h2>
-          <p class="text-secondary">{{user.email}}</p>
         </div>
       </div>
       <!-- FORM HERE enctype needed to upload and save images -->
@@ -21,13 +20,10 @@
                 {{ u_form|crispy }}
                 {{ p_form|crispy }}
             </fieldset>
-            <div class="form-group mt-2">
+            <div class="form-group mt-4">
                 <button class="btn btn-outline-info" type="submit">Update</button>
             </div>
       </form>
-    </div>
-    <div>
-      <a href="{% url 'profile-settings' %}">Profile settings</a>
     </div>
     <script> 
       const inputGroup = document.getElementsByClassName('input-group mb-2');

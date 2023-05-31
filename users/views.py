@@ -67,3 +67,19 @@ def profile(request):
         'p_form': p_form,
     }
     return render(request, 'users/profile.html', context)
+
+@login_required
+def profile_settings(request):
+    u_form, p_form = form_generator(request, request.user.which_account)
+    if request.method == 'POST':
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.info(request, f'user {request.user.username} updated with succes')
+            return redirect('profile-page')
+    
+    context = {
+        'u_form': u_form,
+        'p_form': p_form,
+    }
+    return render(request, 'users/profile_settings.html', context)

@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 import django.contrib.auth.views as auth_views
 from users import views as user_views
 from django.conf import settings
@@ -28,7 +28,7 @@ urlpatterns = [
     path('register/', user_views.register, name='register-page'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login-page'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout-page'),
-    path('profile/', user_views.profile, name='profile-page')
+    path('profile/', include('users.urls'))
 ]
 
 if settings.DEBUG: ## needed to add images on the site
