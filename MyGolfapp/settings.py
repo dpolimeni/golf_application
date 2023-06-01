@@ -148,3 +148,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "profile-page" ## also can set the path to the page
 LOGIN_URL = "/login" ## 'login-page' set this url when try to go to profile page while not authenticated (done by @login_required)
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'diego.polimeni@gmail.com' ## os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = 'oulgstyntvbgyenw' ## os.environ.get('EMAIL_PASS')

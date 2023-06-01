@@ -14,7 +14,13 @@
         {% csrf_token %}
         {{form|crispy}}
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Sign In</button>
+            <button class="btn btn-outline-info mb-2" type="submit">Sign In</button>
+        </div>
+        <div class="border-top pt-3">
+            <small class="text-muted">Need an account? <a href="{% url 'register-page' %}" class="ml-2">Sign up now</a></small>
+        </div>
+        <div class="border-top pt-3">
+            <small class="text-muted">Forgot password? <a href="{% url 'password-reset' %}" class="ml-2">Reset password</a></small>
         </div>
     </form>
 </div>
