@@ -65,6 +65,20 @@ class clubProfile(models.Model):
         ordering = ['name']
     
      
+class Irons(models.Model):
+    brand = models.CharField(max_length=64)
+    name = models.CharField(max_length=64)
+    shot_type = models.CharField(max_length=64)
+    """..."""
+    
+    class Meta:
+        ordering = ['brand']
+    
+
+class IronOwnership(models.Model):
+    user = models.ForeignKey(playerProfile, on_delete=models.CASCADE)
+    iron = models.ForeignKey(Irons, on_delete=models.CASCADE)
+    start_having = models.DateField(blank=True, null=True)
 
     
         
