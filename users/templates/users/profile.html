@@ -13,21 +13,8 @@
           <p class="text-secondary">{{user.email}}</p>
         </div>
       </div>
-      <!-- FORM HERE enctype needed to upload and save images -->
-      <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %} <!-- INSERT FOR SECURITY OF DJANGO FORMS -->
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Profile Info</legend>
-                {{ u_form|crispy }}
-                {{ p_form|crispy }}
-            </fieldset>
-            <div class="form-group mt-2">
-                <button class="btn btn-outline-info" type="submit">Update</button>
-            </div>
-      </form>
-    </div>
-    <div>
-      <a href="{% url 'profile-settings' %}">Profile settings</a>
+      {{bar_plot|safe}}
+      {{scatter_plot|safe}}
     </div>
     <script> 
       const inputGroup = document.getElementsByClassName('input-group mb-2');

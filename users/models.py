@@ -14,6 +14,11 @@ class CustomUser(AbstractUser):
 
     def __str__(self) -> str:
         return super().__str__()
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['email'], name='unique email')
+        ]
 
 
 # Create your models here.

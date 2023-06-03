@@ -10,6 +10,8 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from users.models import CustomUser
 from .utils import form_generator
+import plotly.offline as opy
+import plotly.graph_objs as go
 
 
 # Create your views here.
@@ -54,18 +56,25 @@ def home(request):
 
 @login_required
 def profile(request):
-    u_form, p_form = form_generator(request, request.user.which_account)
-    if request.method == 'POST':
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            messages.info(request, f'user {request.user.username} updated with succes')
-            return redirect('profile-page')
+    data = [go.Scatter(x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 5])]
+    layout = go.Layout(title='Grafico Esempio')
+    fig = go.Figure(data=data, layout=layout)
     
-    context = {
-        'u_form': u_form,
-        'p_form': p_form,
-    }
+    # Convert the figure to HTML
+    scatter_plot_div = opy.plot(fig, auto_open=False, output_type='div')
+    
+    data = [
+        go.Bar(
+            x=['Category A', 'Category B', 'Category C', 'Category D'],
+            y=[10, 15, 7, 12]
+        )
+    ]
+    layout = go.Layout(title='Bar Plot in Django')
+    figure = go.Figure(data=data, layout=layout)
+    bar_plot_div = opy.plot(figure, output_type='div')
+    
+    context = {'bar_plot': bar_plot_div, 'scatter_plot': scatter_plot_div}
+
     return render(request, 'users/profile.html', context)
 
 @login_required
