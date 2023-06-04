@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'matches', 
     "crispy_forms", ## install django-crispy-forms and add the installed application to customize forms
     "crispy_bootstrap5", ## to add crispy forms from bootstrap4
 ]
