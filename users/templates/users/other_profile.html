@@ -1,0 +1,28 @@
+{% extends 'users/base_user.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        {% if user.playerprofile %}
+          <img class="rounded-circle account-img" src="{{ user.playerprofile.img.url }}">
+        {% else %}
+          <img class="rounded-circle account-img" src="{{ user.clubprofile.img.url }}">
+        {% endif %}
+        <div class="media-body">
+          <h2 class="account-heading">{{user.username}}</h2>
+          <p class="text-secondary">{{user.email}}</p>
+        </div>
+      </div>
+      <div>
+        <legend class="border-bottom mb-4">Descrizione</legend>
+        {{user.playerprofile.description}}
+      </div>
+      {{bar_plot|safe}}
+      {{scatter_plot|safe}}
+    </div>
+    <script> 
+      const inputGroup = document.getElementsByClassName('input-group mb-2');
+      inputGroup[0].innerHTML = '';
+      inputGroup[0].className = 'input-group';
+    </script>
+{% endblock content%}

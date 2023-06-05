@@ -6,5 +6,12 @@ from users.models import CustomUser, playerProfile, clubProfile
 
 
 class Matches(models.Model):
+    match_types = (
+        ('Unofficial', 'Amatoriale'),
+        ('Official', 'Ufficiale')
+    )
     date = models.DateTimeField(auto_now_add=False)
+    type = models.CharField(max_length=32, choices=match_types, null=True, blank=True)
+    group_size = models.IntegerField(null=True, blank=True)
+    
     
