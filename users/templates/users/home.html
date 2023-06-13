@@ -54,7 +54,20 @@
 
     <main role="main" class="container">
       <div class="row">
-        {% block content %} {% endblock %}
+        {% block content %} 
+          {% for match in matches %}
+            <article class="media content-section">
+              <div class="media-body">
+                <img class="rounded-circle article-img" src="{{ match.club.img.url }}"> 
+                <div class="article-metadata">
+                  <a class="mr-2" href="{% url 'other-profile' match.club.user.username %}">{{ match.club.user.username }}</a>
+                  <small class="text-muted">{{ match.date | date:"Y-F-d f" }}</small>
+                </div>
+                
+              </div>
+          </article>
+          {% endfor %}
+        {% endblock %}
       </div>
     </main>
 
