@@ -2,6 +2,16 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
-     <h1>WORK IN PROGRESS</h1>
+        {% for match in matches %}
+            <article class="media content-section">
+                <div class="media-body">
+                    <img class="rounded-circle article-img" src="{{ match.club.img.url }}"> 
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{% url 'other-profile' match.club.user.username %}">{{ match.club.user.username }}</a>
+                        <small class="text-muted">{{ match.date | date:"Y-F-d f" }}</small>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
     </div>
 {% endblock content%}
