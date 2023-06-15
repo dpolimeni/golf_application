@@ -30,7 +30,6 @@ urlpatterns = [
     path('register/', user_views.register, name='register-page'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login-page'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout-page'),
-    path('profile/', include('users.urls')),
     path('password_reset/', 
          auth_views.PasswordResetView.as_view(template_name='users/password_reset.html'),
          name='password-reset'),
@@ -43,6 +42,11 @@ urlpatterns = [
     path('password_reset_complete', 
           auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
           name='password_reset_complete'),
+    # INCLUDE APPS PATH
+    path('matches/', include('matches.urls')),
+    path('profile/', include('users.urls')),
+
+
 ]
 
 if settings.DEBUG: ## needed to add images on the site
