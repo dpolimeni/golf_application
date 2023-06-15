@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from users.models import CustomUser
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Matches
 
 # Create your views here.
@@ -22,3 +22,7 @@ class match_list(ListView):
     #    ordering = self.request.GET.get('ordering', '-date_created')
     #    # validate ordering here
     #    return ordering    
+    
+class match_booking(DetailView):
+    model = Matches
+    template_name = 'matches/match_detail.html'
