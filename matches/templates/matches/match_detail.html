@@ -1,12 +1,25 @@
 {% extends "users/home.html" %}
 {% block content %}
-<article class="media content-section">
-    <img class="rounded-circle article-img" src="{{ object.club.img.url }}"> 
-    <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2" href="{% url 'other-profile' object.club.user.username %}">{{ object.club.user.username }}</a>
-            <small class="text-muted">{{ object.date | date:"Y F-d" }}</small>  
+<div class="col-md-6">
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" value="{{object.club.address}}" class="form-control mb-3" name="via" readonly>
+        <input type="text" value="{{object.club.user.username}}" class="form-control mb-3" name="club" readonly>
+        <input type="text" value="{{object.date}}" class="form-control mb-3" name="data" readonly>
+        <input type="text" value="{{object.type}}" class="form-control mb-3" name="tipo gara" readonly>
+        <div class="form-group mt-4">
+            <button class="btn btn-outline-info" type="submit">Prenotati</button>
         </div>
-    </div>
-</article>
+    <form>
+</div>
+
+<div class="col-md-6">
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ object.club.img.url }}"> 
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'other-profile' object.club.user.username %}">{{ object.club.user.username }}</a>
+                <!-- <small class="text-muted">{{ object.date | date:"Y F-d" }}</small> --> 
+            </div>
+    </article>
+</div>
 {% endblock content %}

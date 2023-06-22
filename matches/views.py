@@ -26,3 +26,19 @@ class match_list(ListView):
 class match_booking(DetailView):
     model = Matches
     template_name = 'matches/match_detail.html'
+    
+    def post(self, request, *args, **kwargs):
+        form = self.request.POST
+        match_id = self.kwargs['pk']
+        print(dict(form))
+        print()
+        partita = Matches.objects.get(pk=match_id)
+        if partita.number_subscribed < partita.group_size:
+            #partita.number_subscribed += 1
+            return HttpResponse('Work in progress TI SEI PRENOTATO')
+        #print(partita.number_subscribed)
+        #if form.is_valid():
+        #    # <process form cleaned data>
+        #    print('form valido')
+        #    return redirect('home-first-screen')
+        return HttpResponse('Work in progress')#render(request, self.template_name, {"form": form})
