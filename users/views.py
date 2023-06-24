@@ -54,6 +54,9 @@ def register(request):
 def home(request):
     return render(request, 'users/home.html')
 
+def home_user(request):
+    return render(request, 'users/base_user.html')
+
 @login_required
 def profile(request):
     data = [go.Scatter(x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 5])]
@@ -92,3 +95,24 @@ def profile_settings(request):
         'p_form': p_form,
     }
     return render(request, 'users/profile_settings.html', context)
+
+@login_required
+def other_profile(request, username):
+    user = CustomUser.objects.get(username=username)
+    if user.which_account == 'Gplayer':
+        profile = user.playerprofile
+    else:
+        profile = user.clubprofile
+    
+    ### FAKE PLOTS
+    data = [go.Scatter(x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 5])]
+    layout = go.Layout(title=f'Statistiche di {username}')
+    fig = go.Figure(data=data, layout=layout)
+    
+    scatter_plot_div = opy.plot(fig, auto_open=False, output_type='div')
+    
+    context = {
+        'user':user,
+        'scatter_plot':scatter_plot_div
+    }
+    return render(request, 'users/other_profile.html', context)

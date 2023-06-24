@@ -1,0 +1,20 @@
+{% extends 'users/home.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        {% for match in matches %}
+            <article class="media content-section">
+                <div class="media-body">
+                    <img class="rounded-circle article-img" src="{{ match.club.img.url }}"> 
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{% url 'other-profile' match.club.user.username %}">{{ match.club.user.username }}</a>
+                        <small class="text-muted">{{ match.date | date:"Y-F-d f" }}</small>
+                    </div>
+                    <button class="btn btn-outline-info mb-2">
+                        <a class="nav-link" href="{% url 'match-detail' match.pk %}">Prenota</a>
+                    </button>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock content%}
