@@ -22,13 +22,13 @@
 <div class="col-md-6">
     <div class="card p-2 mb-3" style="width: 22rem;">
         <img class="rounded-circle article-img" src="{{ object.club.img.url }}"> 
-            <div class="article-metadata">
-                <a class="mr-2" href="{% url 'other-profile' object.club.user.username %}">{{ object.club.user.username }}</a>
+        <div class="article-metadata">
+            <a class="mr-2" href="{% url 'other-profile' object.club.user.username %}">{{ object.club.user.username }}</a>
                 <!-- <small class="text-muted">{{ object.date | date:"Y F-d" }}</small> --> 
-            </div>
-            {% for booking in object.matchbooking_set.all %}
-                <a type="text" class="form-control mb-3" href="{% url 'other-profile' booking.profile.user.username %}">{{booking.profile.user.username}}</a>
-            {% endfor %}
         </div>
+        {% for booking in object.matchbooking_set.all %}
+            <a type="text" class="form-control mb-3" href="{% url 'other-profile' booking.profile.user.username %}">{{booking.profile.user.username}}</a>
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}

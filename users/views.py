@@ -19,6 +19,8 @@ import plotly.graph_objs as go
 def register(request):
     if request.method == "POST":
         register_form = UserRegisterForm(request.POST)
+        profile_form = ProfileSignUpForm()
+        club_form = ClubSignUpForm()
         if register_form.is_valid():
             register_form.save()
             register_form_data = dict(register_form.cleaned_data)
