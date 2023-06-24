@@ -3,6 +3,13 @@
 {% block content %}
     <div class="content-section">
       <div class="media">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         {% if user.playerprofile %}
           <img class="rounded-circle account-img" src="{{ user.playerprofile.img.url }}">
         {% else %}

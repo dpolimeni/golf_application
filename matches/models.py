@@ -28,4 +28,9 @@ class MatchBooking(models.Model):
     profile = models.ForeignKey(playerProfile, on_delete=models.CASCADE)
     match = models.ForeignKey(Matches, on_delete=models.CASCADE)
      
-    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['profile', 'match'], name='Max 1 booking per macth'
+            ),
+        ]

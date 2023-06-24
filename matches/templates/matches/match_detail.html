@@ -1,25 +1,34 @@
 {% extends "users/home.html" %}
 {% block content %}
 <div class="col-md-6">
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" value="{{object.club.address}}" class="form-control mb-3" name="via" readonly>
-        <input type="text" value="{{object.club.user.username}}" class="form-control mb-3" name="club" readonly>
-        <input type="text" value="{{object.date}}" class="form-control mb-3" name="data" readonly>
-        <input type="text" value="{{object.type}}" class="form-control mb-3" name="tipo gara" readonly>
-        <div class="form-group mt-4">
-            <button class="btn btn-outline-info" type="submit">Prenotati</button>
-        </div>
-    <form>
+    <div class="card p-2 mb-3" style="width: 22rem;">
+        <form method="POST">
+            {% csrf_token %}
+            <label for='address_id'>VIA</label>
+            <input id='address_id' type="text" value="{{object.club.address}}" class="form-control mb-3" name="via" readonly>
+            <label for='circolo_id'>CIRCOLO</label>
+            <input id='circolo_id' type="text" value="{{object.club.user.username}}" class="form-control mb-3" name="club" readonly>
+            <label for='data_id'>DATA</label>
+            <input id='data_id' type="text" value="{{object.date}}" class="form-control mb-3" name="data" readonly>
+            <label for='gara_id'>TIPO GARA</label>
+            <input id='gara_id' type="text" value="{{object.type}}" class="form-control mb-3" name="tipo gara" readonly>
+            <div class="form-group mt-4">
+                <button class="btn btn-outline-info" type="submit">Prenotati</button>
+            </div>
+        <form>
+    </div>
 </div>
 
 <div class="col-md-6">
-    <article class="media content-section">
+    <div class="card p-2 mb-3" style="width: 22rem;">
         <img class="rounded-circle article-img" src="{{ object.club.img.url }}"> 
             <div class="article-metadata">
                 <a class="mr-2" href="{% url 'other-profile' object.club.user.username %}">{{ object.club.user.username }}</a>
                 <!-- <small class="text-muted">{{ object.date | date:"Y F-d" }}</small> --> 
             </div>
-    </article>
+            {% for booking in object.matchbooking_set.all %}
+                <a type="text" class="form-control mb-3" href="{% url 'other-profile' booking.profile.user.username %}">{{booking.profile.user.username}}</a>
+            {% endfor %}
+        </div>
 </div>
 {% endblock content %}
