@@ -23,7 +23,7 @@ class match_list(ListView):
     #    # validate ordering here
     #    return ordering    
     
-class match_booking(DetailView):
+class matchBooking(DetailView):
     model = Matches
     template_name = 'matches/match_detail.html'
     

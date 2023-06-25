@@ -1,14 +1,19 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import (UserRegisterForm,
                     ProfileSignUpForm,
                     UserUpdateForm, 
                     ProfileUpdateForm,
                     ClubSignUpForm
                     )
+from django.views.generic import ListView, DetailView
+
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from users.models import CustomUser
+from users.models import (CustomUser,
+                          playerProfile, 
+                          Irons, 
+                          IronOwnership)
 from .utils import form_generator
 import plotly.offline as opy
 import plotly.graph_objs as go
@@ -97,6 +102,23 @@ def profile_settings(request):
         'p_form': p_form,
     }
     return render(request, 'users/profile_settings.html', context)
+
+@login_required
+def iron_page(request):
+    a = 1
+    return HttpResponse('TEST')
+
+class ironsListView(ListView):  
+    model = IronOwnership 
+    template_name = 'users/irons.html'  
+    context_object_name = 'irons' 
+ 
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(playerProfile, user=CustomUser.objects.get(username=self.kwargs.get('username')))
+        print(user)
+        return IronOwnership.objects.filter(user=user)#.order_by('-date_posted')
 
 @login_required
 def other_profile(request, username):
