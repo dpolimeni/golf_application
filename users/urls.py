@@ -8,5 +8,7 @@ urlpatterns = [
     path('home/', user_views.home_user, name='home-user'),
     path('', user_views.profile, name='profile-page'),
     path('settings/', user_views.profile_settings, name='profile-settings'),
+    #path('Irons/', user_views.iron_page, name='iron-page'),
+    path('irons/<str:username>', user_views.ironsListView.as_view(), name='iron-page'),
     path('users/<str:username>', user_views.other_profile, name='other-profile'),
 ]

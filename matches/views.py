@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from users.models import CustomUser
 from django.views.generic import ListView, DetailView
-from .models import Matches
+from .models import Matches, MatchBooking
 
 # Create your views here.
 def create_match(request):
@@ -23,22 +23,24 @@ class match_list(ListView):
     #    # validate ordering here
     #    return ordering    
     
-class match_booking(DetailView):
+class matchBooking(DetailView):
     model = Matches
     template_name = 'matches/match_detail.html'
     
     def post(self, request, *args, **kwargs):
         form = self.request.POST
         match_id = self.kwargs['pk']
-        print(dict(form))
-        print()
         partita = Matches.objects.get(pk=match_id)
         if partita.number_subscribed < partita.group_size:
-            #partita.number_subscribed += 1
-            return HttpResponse('Work in progress TI SEI PRENOTATO')
-        #print(partita.number_subscribed)
-        #if form.is_valid():
-        #    # <process form cleaned data>
-        #    print('form valido')
-        #    return redirect('home-first-screen')
+            partita.number_subscribed += 1
+            booking = MatchBooking(profile=self.request.user.playerprofile, match=partita)
+            try:
+                booking.save()
+                partita.save()
+            except Exception as e:
+                print('ERROR :', e)
+                return HttpResponse('TI SEI GIA PRENOTATO A QUESTA PARTITA')
+            
+            messages.success(request, f'Ti sei prenotato alla gara del {form["data"]} al circolo {partita.club.name}')           
+            return redirect('profile-page')
         return HttpResponse('Work in progress')#render(request, self.template_name, {"form": form})
