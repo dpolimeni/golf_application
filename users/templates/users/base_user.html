@@ -43,8 +43,7 @@
                                 </svg>
                             </a>
                             <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="{% url 'iron-page' user.username %}">I tuoi ferri</a></li>
+                            <li><a class="dropdown-item" href="{% url 'iron-page' request.user.username %}">I tuoi ferri</a></li>
                             <li><a class="dropdown-item" href="{% url 'profile-settings' %}">Impostazioni Profilo</a></li>
                             </ul>
                         </li>

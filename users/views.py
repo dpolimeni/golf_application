@@ -117,7 +117,7 @@ class ironsListView(ListView):
 
     def get_queryset(self):
         user = get_object_or_404(playerProfile, user=CustomUser.objects.get(username=self.kwargs.get('username')))
-        print(user)
+        print(self.request.user)
         return IronOwnership.objects.filter(user=user)#.order_by('-date_posted')
 
 @login_required

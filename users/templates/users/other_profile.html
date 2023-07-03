@@ -14,8 +14,12 @@
         </div>
       </div>
       <div>
-        <legend class="border-bottom mb-4">Descrizione</legend>
+        <legend class="border-bottom mb-3">Descrizione</legend>
         {{user.playerprofile.description}}
+      </div>
+      <div>
+        <legend class="border-bottom mb-3 mt-3">I ferri di {{user.username}}</legend>
+        <a class="btn btn-info" href="{% url 'iron-page' user.username %}">Esplora i suoi ferri</a>
       </div>
       {{bar_plot|safe}}
       {{scatter_plot|safe}}
