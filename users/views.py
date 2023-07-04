@@ -104,8 +104,10 @@ def profile_settings(request):
     return render(request, 'users/profile_settings.html', context)
 
 @login_required
-def iron_page(request):
-    a = 1
+def new_iron(request):
+    iron_form = {}
+    if 1==1:
+        pass
     return HttpResponse('TEST')
 
 class ironsListView(ListView):  
@@ -113,7 +115,7 @@ class ironsListView(ListView):
     template_name = 'users/irons.html'  
     context_object_name = 'irons' 
  
-    paginate_by = 5
+    paginate_by = 3
 
     def get_queryset(self):
         user = get_object_or_404(playerProfile, user=CustomUser.objects.get(username=self.kwargs.get('username')))
