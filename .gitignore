@@ -18,3 +18,7 @@
 .idea/
 *.iml
 *.swp
+
+# Virtual env
+.venv
+golf_env
