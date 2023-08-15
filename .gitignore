@@ -20,5 +20,6 @@
 *.swp
 
 # Virtual env
-.venv
-golf_env
+.venv/
+golf_env/
+venv/
