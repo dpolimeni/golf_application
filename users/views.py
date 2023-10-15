@@ -5,6 +5,8 @@ from .forms import (UserRegisterForm,
                     ProfileUpdateForm,
                     ClubSignUpForm
                     )
+from django.views.decorators.csrf import csrf_exempt
+
 from django.views.generic import ListView, DetailView
 
 from django.contrib import messages
@@ -20,7 +22,7 @@ import plotly.graph_objs as go
 
 
 # Create your views here.
-
+@csrf_exempt
 def register(request):
     if request.method == "POST":
         register_form = UserRegisterForm(request.POST)
@@ -58,12 +60,14 @@ def register(request):
                                                            'profile_form': profile_form,
                                                            'club_form':club_form})
 
+@csrf_exempt
 def home(request):
     return render(request, 'users/home.html')
 
 def home_user(request):
     return render(request, 'users/base_user.html')
 
+@csrf_exempt
 @login_required
 def profile(request):
     data = [go.Scatter(x=[1, 2, 3, 4, 5], y=[1, 2, 3, 4, 5])]
@@ -87,6 +91,7 @@ def profile(request):
 
     return render(request, 'users/profile.html', context)
 
+@csrf_exempt
 @login_required
 def profile_settings(request):
     u_form, p_form = form_generator(request, request.user.which_account)
@@ -103,6 +108,7 @@ def profile_settings(request):
     }
     return render(request, 'users/profile_settings.html', context)
 
+@csrf_exempt
 @login_required
 def new_iron(request):
     iron_form = {}
@@ -122,6 +128,7 @@ class ironsListView(ListView):
         print(self.request.user)
         return IronOwnership.objects.filter(user=user)#.order_by('-date_posted')
 
+@csrf_exempt
 @login_required
 def other_profile(request, username):
     user = CustomUser.objects.get(username=username)

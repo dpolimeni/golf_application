@@ -27,8 +27,16 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# for testing
+ALLOWED_HOSTS = ["*"]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://golfapp-mike.azurewebsites.net",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://golfapp-mike.azurewebsites.net",
+]
 
 # Application definition
 
