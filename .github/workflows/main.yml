@@ -1,4 +1,6 @@
 
+name: Build and push to container registry
+
 
 on:
   push:
