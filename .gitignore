@@ -28,3 +28,10 @@ MyGolfapp/db.sqlite3
 .venv/
 golf_env/
 venv/
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.py[cod]
+*$py.class
