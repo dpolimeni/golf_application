@@ -22,3 +22,6 @@
 # Virtual env
 .venv
 golf_env
+
+## sqlite
+MyGolfapp/db.sqlite3
