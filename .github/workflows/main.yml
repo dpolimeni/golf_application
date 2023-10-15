@@ -26,5 +26,5 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
-            docker build -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/golfapp:${{ github.sha }} -f Dockerfile .
+            docker build -t testgolf.azurecr.io/golfapp:${{ github.sha }} -f Dockerfile .
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/golfapp:${{ github.sha }}
