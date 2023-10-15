@@ -25,3 +25,6 @@ golf_env
 
 ## sqlite
 MyGolfapp/db.sqlite3
+.venv/
+golf_env/
+venv/
